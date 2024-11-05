@@ -102,6 +102,57 @@ app.post('/naruci', (req, res) => {
         ukupna_cijena: ukupnaCijena
     });
 });
+//PUT metoda-mijenja cijekli resurs
+//Tijelo zahtjeva{id:5,naziv:'Vegetariana',cijena :10}
+//Moramo zamjeniti stvarne podatke
+
+app.put('/pizze/:id',(req,res)=>{
+let id_pizza_req = req.params.id;
+let tijelo_zahtjeva = req.body;
+
+if (isNaN(id_pizza_req)){
+    return res.json({message:'Proslijedili ste parametar id koji nije broj!'});    
+}
+
+//implementacija
+let index = pizze.findIndex(pizza => pizza.id = id_pizza_req);
+
+pizze[index] = tijelo_zahtjeva;
+
+return res.json({message:'Ažurirano!'})
+});
+
+//patch azurira samo dijelove objekta odnosno resursa
+app.patch('/pizze/:id',(req,res)=> {
+    let id_pizza_req = req.params.id;
+    let tijelo_zahtjeva = req.body;
+
+if (isNaN(id_pizza_req)){
+    return res.json({message:'Proslijedili ste parametar id koji nije broj!'});    
+}
+
+let index = pizze.findIndex(pizza => pizza.id == id_pizza_req);
+//implementacija(kljuceve tretiramo )
+let kljucevi_objekta = Object.keys(tijelo_zahtjeva);
+
+console.log(kljucevi_objekta);
+
+for(let kljuc of kljucevi_objekta){
+    if(pizze[index][kljuc] != tijelo_zahtjeva[kljuc]){
+        pizze[index][kljuc] = tijelo_zahtjeva[kljuc]
+    }else{
+        pizze[index][kljuc] = pizze[index][kljuc];
+    };
+
+
+    pizze[index][kljuc]=tijelo_zahtjeva[kljuc];
+}
+
+pizze[index] = tijelo_zahtjeva;
+console.log(pizze);
+
+return res.json({message:'Azurirano!',azurirani_podatak: tijelo_zahtjeva })
+});
 
 app.listen(PORT, (error) => {
     if (error) {
