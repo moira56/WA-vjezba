@@ -2,10 +2,12 @@
   "name": "wa-vjezba",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "samostalni zadatak 2/index1.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node \"samostalni zadatak 2/index1.js\"",
+    "dev": "nodemon \"samostalni zadatak 2/index1.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
